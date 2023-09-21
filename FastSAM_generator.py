@@ -12,7 +12,7 @@ from label_process import segment_boxes, remove_small_regions, remove_small_bloc
 
 def seg_image_process(data_path, save_path, model_type, edge):
     model = FastSAM('./models/' + model_type)
-    DEVICE = '0'
+    DEVICE = '[0,1,2,3]'
 
     data_path = os.path.join(data_path)
     class_list = os.listdir(data_path)
