@@ -50,9 +50,12 @@ def seg_image_process(data_path, save_path, model_type, edge):
             prompt_process = FastSAMPrompt(img_path, everything_results, device=DEVICE)
             masks = prompt_process.box_prompt(bboxes=boxes)
 
-            for mask in masks:
-                if mask.shape == new_mask.shape:
-                    new_mask += mask
+            if len(masks) == 0:
+                new_mask.fill(1)
+            else:
+                for mask in masks:
+                    if mask.shape == new_mask.shape:
+                        new_mask += mask
 
             new_mask = new_mask.astype(np.uint8)
             rgb_mask = cv2.cvtColor(new_mask, cv2.COLOR_GRAY2RGB)
