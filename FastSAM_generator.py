@@ -69,7 +69,7 @@ def args_parser():
     parser.add_argument('data_path', type=str, help="Path of the original dataset.")
     parser.add_argument('save_path', type=str, help="Path of the new dataset.")
     parser.add_argument('--model_type', type=str, default='FastSAM-x.pt', help="FastSAM-s.pt,FastSAM-x.pt")
-    parser.add_argument('--edge', type=float, default=0.25, help="The distance for edge cropping")
+    parser.add_argument('--edge', type=float, default=0.3, help="The distance for edge cropping")
     args = parser.parse_args()
     return args
 
