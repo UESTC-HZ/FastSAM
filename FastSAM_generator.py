@@ -46,7 +46,7 @@ def seg_image_process(data_path, save_path, model_type, edge):
 
             boxes = [[ww, hh, w - ww, h - hh], [ww, 0, w - ww, h - hh], [ww, hh, w - ww, h], [0, hh, w - ww, h - hh], [ww, hh, w, h - hh]]
 
-            everything_results = model(img_path, device=DEVICE, retina_masks=True, imgsz=1024, conf=0.4, iou=0.9, )
+            everything_results = model(img_path, device=DEVICE, retina_masks=True, imgsz=512, conf=0.4, iou=0.9, )
             prompt_process = FastSAMPrompt(img_path, everything_results, device=DEVICE)
             masks = prompt_process.box_prompt(bboxes=boxes)
 
