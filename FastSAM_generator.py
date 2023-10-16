@@ -27,7 +27,7 @@ def seg_image_process(data_path, save_path, model_type, edge):
         if not os.path.exists(new_image_path):
             os.makedirs(new_image_path)
 
-        for name in tqdm(os.listdir(image_path), desc="calss : " + (index - 1)):
+        for name in tqdm(os.listdir(image_path), desc="calss : " + str(index - 1)):
             img_path = os.path.join(image_path, name)
             image = Image.open(img_path)  # 加载图片
             if image.mode != "RGB":
