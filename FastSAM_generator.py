@@ -27,12 +27,13 @@ def seg_image_process(data_path, save_path, model_type, edge):
         if not os.path.exists(new_image_path):
             os.makedirs(new_image_path)
 
-        for name in tqdm(os.listdir(image_path)):
+        for name in tqdm(os.listdir(image_path), desc="calss : " + (index - 1)):
             img_path = os.path.join(image_path, name)
             image = Image.open(img_path)  # 加载图片
             if image.mode != "RGB":
-                image.save(os.path.join(new_image_path, name))
-                continue
+                image = image.convert("RGB")
+                # image.save(os.path.join(new_image_path, name))
+                # continue
 
             image = np.asarray(image)
             h, w, c = image.shape
@@ -44,7 +45,8 @@ def seg_image_process(data_path, save_path, model_type, edge):
             #  图像分块策略
             # boxes = segment_boxes(h, w, edge)
 
-            boxes = [[ww, hh, w - ww, h - hh], [ww, 0, w - ww, h - hh], [ww, hh, w - ww, h], [0, hh, w - ww, h - hh], [ww, hh, w, h - hh]]
+            boxes = [[ww, hh, w - ww, h - hh], [ww, 0, w - ww, h - hh], [ww, hh, w - ww, h], [0, hh, w - ww, h - hh],
+                     [ww, hh, w, h - hh]]
 
             everything_results = model(img_path, device=DEVICE, retina_masks=True, imgsz=640, conf=0.4, iou=0.9, )
             prompt_process = FastSAMPrompt(img_path, everything_results, device=DEVICE)
